@@ -10,7 +10,7 @@ const GlobalStyles = createGlobalStyle`
       min-height: 100vh;
       background: #fafafa;
       color: #2e2e2e;
-      font-family: "Lexend Deca", sans-serif;
+      font-family: "Nunito", sans-serif;
     }
     #root {  
       max-width: 1024px;

@@ -139,6 +139,7 @@ const ResetStyles = createGlobalStyle`
         outline: none;
         border: none;
         font-family: inherit;
+        color: inherit;
     }
 `;
 

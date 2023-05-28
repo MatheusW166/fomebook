@@ -8,12 +8,12 @@ const GlobalStyles = createGlobalStyle`
     }
     body{
       min-height: 100vh;
-      background: #fafafa;
-      color: #2e2e2e;
+      background: #1c1917;
+      color: #fafaf9;
       font-family: "Nunito", sans-serif;
     }
     #root {  
-      max-width: 1024px;
+      max-width: 800px;
       margin: 0 auto;
     }
     a:hover, button:hover {

@@ -85,7 +85,7 @@ export const ProfileInfoStyled = styled.div`
       display: flex;
       gap: 16px;
 
-      a span {
+      span {
         color: #a8a29e;
       }
     }

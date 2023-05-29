@@ -2,57 +2,76 @@ import { useParams } from "react-router-dom";
 import Header from "../components/Header.js";
 import { FollowButtonStyled, MainStyled, TitleH3Styled } from "../styled.js";
 import styled from "styled-components";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/user.context.js";
 import Profile from "../components/Profile.js";
 import CreatePost from "../components/CreatePost.js";
+import { getUserById } from "../services/user.services.js";
+import { getUserPosts } from "../services/post.services.js";
 import Post from "../components/Post.js";
 
-const data = {
-  followersCount: 265,
-  followingCount: 132,
-  name: "Comedor 2000",
-  bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque at quam sed quam cursus accumsan. Praesent rhoncus elementum eros eu pretium.",
-  photoUrl:
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk8RBMDAfdzL1nKJXlbEU3HrC2W762sLvyRA&usqp=CAU",
-};
-
-const post = {
-  userName: data.name,
-  userPhotoUrl: data.photoUrl,
-  photoUrl:
-    "https://i0.wp.com/mercadoeconsumo.com.br/wp-content/uploads/2019/04/Que-comida-saud%C3%A1vel-que-nada-brasileiro-gosta-de-fast-food.jpg?fit=1600%2C1067&ssl=1",
-  description:
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed interdum ipsum non euismod mattis. Curabitur aliquet justo eget turpis posuere vehicula. Donec luctus mi sed dui semper scelerisque. Praesent tincidunt lorem a orci vulputate, in commodo justo fermentum.",
-  createdAt: "12/04/2023",
-  likesCount: 132,
-  isLiked: false,
-};
+function getPubTitle(isProfileOwner, userName) {
+  return isProfileOwner ? "Suas publicações" : `Publicações de ${userName}`;
+}
 
 export default function UsersProfile() {
-  const { user } = useContext(UserContext);
-  const { userId } = useParams();
-  const isProfileOwner = user?.id === userId;
+  const { user: loggedUser } = useContext(UserContext);
+  const { userId: userProfileId } = useParams();
+  const isProfileOwner = loggedUser?.id === userProfileId;
+  const [userProfile, setUserProfile] = useState();
+  const [userPosts, setUserPosts] = useState();
+
+  useEffect(() => {
+    if (!userProfileId) {
+      return;
+    }
+    getUserById({ userId: userProfileId })
+      .then(setUserProfile)
+      .catch(console.log);
+    getUserPosts({ userId: userProfileId })
+      .then(setUserPosts)
+      .catch(console.log);
+  }, [userProfileId]);
+
+  function onPostSubmit(newPost) {
+    if (!newPost?.id) return;
+    getUserPosts({ userId: userProfileId })
+      .then(setUserPosts)
+      .catch(console.log);
+  }
 
   return (
     <>
-      <Header highlited={isProfileOwner && 1} />
-      <MainCustom>
+      <Header highlited={isProfileOwner && 0} />
+      <MainCustom isProfileOwner={isProfileOwner}>
         <section>
-          <Profile {...data}>
-            {isProfileOwner && <FollowButtonStyled>Seguir</FollowButtonStyled>}
+          <Profile
+            name={userProfile?.name}
+            bio={userProfile?.bio}
+            photoUrl={userProfile?.photo}
+            followersCount={userProfile?.followersCount}
+            followingCount={userProfile?.followingCount}>
+            {!isProfileOwner && <FollowButtonStyled>Seguir</FollowButtonStyled>}
           </Profile>
-          <CreatePost />
+          {isProfileOwner && <CreatePost onPostSubmit={onPostSubmit} />}
         </section>
         <section>
-          <TitleH3Styled>Publicações de {data.name}</TitleH3Styled>
+          <TitleH3Styled>
+            {getPubTitle(isProfileOwner, userProfile?.name)}
+          </TitleH3Styled>
           <PostsListStyled>
-            <li>
-              <Post {...post} />
-            </li>
-            <li>
-              <Post {...post} />
-            </li>
+            {userPosts?.map((post) => (
+              <li key={post.id}>
+                <Post
+                  userName={post.userName}
+                  userPhotoUrl={post.userPhoto}
+                  photoUrl={post.photo}
+                  createdAt={post.createdAt}
+                  description={post.description}
+                  likesCount={post.likesCount}
+                />
+              </li>
+            ))}
           </PostsListStyled>
         </section>
       </MainCustom>
@@ -64,6 +83,16 @@ const MainCustom = styled(MainStyled)`
   justify-content: start;
   align-items: stretch;
   gap: 48px;
+
+  section:first-of-type {
+    ${({ isProfileOwner }) =>
+      !isProfileOwner &&
+      `
+      div:first-child {
+        border-radius: 24px;
+      }
+    `}
+  }
 `;
 
 const PostsListStyled = styled.ul`

@@ -21,7 +21,7 @@ export default function Post({
           <PostHeaderStyled>
             <ProfilePhotoStyled alt={`${userName}-photo`} src={userPhotoUrl} />
             <p>{userName}</p>
-            <p>{createdAt}</p>
+            <p>{new Date(createdAt).toLocaleDateString()}</p>
           </PostHeaderStyled>
           <main>{description}</main>
         </div>

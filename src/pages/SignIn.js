@@ -12,6 +12,7 @@ import {
 import { useContext } from "react";
 import { UserContext } from "../context/user.context.js";
 import InputCustom from "../components/InputCustom.js";
+import { parseError } from "../utils/error.utils.js";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -27,17 +28,17 @@ export default function SignIn() {
 
     try {
       const user = await signIn({ email, password });
-      saveToken(user.token);
+      saveToken(user?.token);
       setUser(user);
-      navigate("/home");
+      navigate(`/users/${user.id}`);
     } catch (err) {
-      alert(err.response?.data.error ?? err.message);
+      alert(parseError(err));
     }
   }
 
   return (
     <>
-      <Header highlited={0} />
+      <Header />
       <MainStyled>
         <SignTitleStyled>
           <TitleH2Styled>Login</TitleH2Styled>

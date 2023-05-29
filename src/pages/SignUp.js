@@ -12,6 +12,7 @@ import InputCustom, {
   InputCustomLabel,
   TextAreaCustomStyled,
 } from "../components/InputCustom.js";
+import { parseError } from "../utils/error.utils.js";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -35,13 +36,13 @@ export default function SignUp() {
       await signUp({ name, photoUrl, bio, email, password });
       navigate("/");
     } catch (err) {
-      alert(err.response?.data.error ?? err.message);
+      alert(parseError(err));
     }
   }
 
   return (
     <>
-      <Header highlited={1} />
+      <Header />
       <MainStyled>
         <SignTitleStyled>
           <TitleH2Styled>Cadastro</TitleH2Styled>

@@ -7,7 +7,7 @@ import { House, MagnifyingGlass, SignOut } from "@phosphor-icons/react";
 
 export default function Header({ highlited }) {
   const { user, setUser } = useContext(UserContext);
-  const loggedUserRoute = `/users/${user?.id}`;
+  const loggedUserRoute = user ? `/users/${user.id}` : "/";
 
   function logOut() {
     setUser(null);
@@ -17,9 +17,11 @@ export default function Header({ highlited }) {
   return (
     <HeaderStyled isAuth={user !== null} highlited={highlited}>
       <div>
-        <h1>
-          <span>Fome</span>book
-        </h1>
+        <Link to={loggedUserRoute}>
+          <h1>
+            <span>Fome</span>book
+          </h1>
+        </Link>
         <nav>
           <Link to={`${loggedUserRoute}`}>
             <House weight="duotone" />
@@ -76,6 +78,12 @@ const HeaderStyled = styled.header`
             color: #ef4444;
         }
     `}
-    ${({ isAuth }) => !isAuth && `a { visibility: hidden;}`}
+    ${({ isAuth }) =>
+      !isAuth &&
+      `
+      a:not(:nth-of-type(2)) { 
+        display:none;
+      }
+    `}
   }
 `;

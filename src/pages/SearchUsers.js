@@ -6,26 +6,31 @@ import { MagnifyingGlass } from "@phosphor-icons/react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import queryString from "query-string";
 import SearchResult from "../components/SearchResult.js";
-
-const data = {
-  followersCount: 265,
-  followingCount: 132,
-  name: "Comedor 2000",
-  bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque at quam sed quam cursus accumsan. Praesent rhoncus elementum eros eu pretium.",
-  photoUrl:
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQk8RBMDAfdzL1nKJXlbEU3HrC2W762sLvyRA&usqp=CAU",
-};
+import { useEffect } from "react";
+import { searchUsersByName } from "../services/user.services.js";
+import { useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "../context/user.context.js";
 
 export default function SearchUsers() {
   const { search } = useLocation();
   const userNameFromUrl = queryString.parse(search)?.name;
   const navigate = useNavigate();
+  const [searchResult, setSearchResult] = useState();
+  const { user: loggedUser } = useContext(UserContext);
 
   function handleSubmit(event) {
     event.preventDefault();
     const userName = event.target.name.value?.trim();
     navigate({ search: queryString.stringify({ name: userName }) });
   }
+
+  useEffect(() => {
+    if (!userNameFromUrl?.trim()) return;
+    searchUsersByName({ name: userNameFromUrl })
+      .then(setSearchResult)
+      .catch(console.log);
+  }, [userNameFromUrl]);
 
   return (
     <>
@@ -45,11 +50,22 @@ export default function SearchUsers() {
         </form>
         <TitleH2Styled>Resultados</TitleH2Styled>
         <SearchResultListStyled>
-          <li>
-            <Link>
-              <SearchResult {...data} />
-            </Link>
-          </li>
+          {searchResult?.map((result) => (
+            <li key={result.id}>
+              <Link to={`/users/${result.id}`}>
+                <SearchResult
+                  name={
+                    result?.name +
+                    (result.id === loggedUser?.id ? " (Você) " : "")
+                  }
+                  bio={result?.bio}
+                  photoUrl={result?.photo}
+                  followersCount={result?.followersCount}
+                  followingCount={result?.followingCount}
+                />
+              </Link>
+            </li>
+          ))}
         </SearchResultListStyled>
       </MainCustom>
     </>

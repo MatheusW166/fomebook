@@ -20,11 +20,11 @@ export default function Profile({
         <div>
           {children}
           <div>
-            <Link to="followers">
-              {followersCount} <span>Seguindo</span>
+            <Link to="following">
+              {followingCount} <span>Seguindo</span>
             </Link>
             <Link to="followers">
-              {followingCount} <span>Seguidores</span>
+              {followersCount} <span>Seguidores</span>
             </Link>
           </div>
         </div>

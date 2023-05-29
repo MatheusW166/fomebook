@@ -5,6 +5,7 @@ import SignIn from "./pages/SignIn.js";
 import SignUp from "./pages/SignUp.js";
 import SearchUsers from "./pages/SearchUsers.js";
 import UsersProfile from "./pages/UsersProfile.js";
+import Following from "./pages/Followers.js";
 
 export default function MyRoutes() {
   const { user } = useContext(UserContext);
@@ -23,7 +24,7 @@ export default function MyRoutes() {
       />
       <Route path="/users/search" element={<SearchUsers />} />
       <Route path="/users/:userId" element={<UsersProfile />} />
-      <Route path="/users/:userId/followers" element={<>Hello World</>} />
+      <Route path="/users/:userId/:followType" element={<Following />} />
     </Routes>
   );
 }

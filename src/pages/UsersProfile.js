@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import Header from "../components/Header.js";
-import { FollowButtonStyled, MainStyled, TitleH3Styled } from "../styled.js";
+import { MainStyled, TitleH3Styled } from "../styled.js";
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/user.context.js";
@@ -9,6 +9,7 @@ import CreatePost from "../components/CreatePost.js";
 import { getUserById } from "../services/user.services.js";
 import { getUserPosts } from "../services/post.services.js";
 import Post from "../components/Post.js";
+import FollowingStats from "../components/FollowingStats.js";
 
 function getPubTitle(isProfileOwner, userName) {
   return isProfileOwner ? "Suas publicações" : `Publicações de ${userName}`;
@@ -42,7 +43,7 @@ export default function UsersProfile() {
 
   return (
     <>
-      <Header highlited={isProfileOwner && 0} />
+      <Header highlited={isProfileOwner ? 0 : -1} />
       <MainCustom isProfileOwner={isProfileOwner}>
         <section>
           <Profile
@@ -51,7 +52,16 @@ export default function UsersProfile() {
             photoUrl={userProfile?.photo}
             followersCount={userProfile?.followersCount}
             followingCount={userProfile?.followingCount}>
-            {!isProfileOwner && <FollowButtonStyled>Seguir</FollowButtonStyled>}
+            {!isProfileOwner && (
+              <FollowingStats
+                afterFollow={() => {
+                  getUserById({ userId: userProfileId })
+                    .then(setUserProfile)
+                    .catch(console.log);
+                }}
+                profileId={userProfileId}
+              />
+            )}
           </Profile>
           {isProfileOwner && <CreatePost onPostSubmit={onPostSubmit} />}
         </section>

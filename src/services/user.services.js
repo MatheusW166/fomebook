@@ -26,4 +26,9 @@ async function getLoggedUser() {
   return res.data;
 }
 
-export { signIn, signUp, getUserById, getLoggedUser };
+async function searchUsersByName({ name }) {
+  const res = await client.get(`/user/search?name=${name}`);
+  return res.data;
+}
+
+export { signIn, signUp, getUserById, getLoggedUser, searchUsersByName };

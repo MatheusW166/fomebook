@@ -25,10 +25,10 @@ export default function SearchResult({
           {children}
           <div>
             <div>
-              {followersCount} <span>Seguindo</span>
+              {followingCount} <span>Seguindo</span>
             </div>
             <div>
-              {followingCount} <span>Seguidores</span>
+              {followersCount} <span>Seguidores</span>
             </div>
           </div>
         </div>

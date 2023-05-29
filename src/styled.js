@@ -56,22 +56,11 @@ const SignTitleStyled = styled.div`
   }
 `;
 
-const FollowButtonStyled = styled.button`
-  padding: 0px 24px;
-  height: 35px;
-  border: 1px solid #ef4444;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 16px;
-  color: #ef4444;
-`;
-
 export {
   MainStyled,
   ButtonStyled,
   FormStyled,
   SignTitleStyled,
-  FollowButtonStyled,
   TitleH2Styled,
   TitleH3Styled,
 };

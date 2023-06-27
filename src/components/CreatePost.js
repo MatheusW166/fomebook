@@ -4,37 +4,37 @@ import { InputCustomStyled, TextAreaCustomStyled } from "./InputCustom.js";
 import { createPost } from "../services/post.services.js";
 
 export default function CreatePost({ onPostSubmit }) {
-  function handleSubmit(event) {
-    event.preventDefault();
-    const photo = event.target.photo.value?.trim();
-    const description = event.target.description.value?.trim();
-    createPost({ photo, description })
-      .then((post) => {
-        event.target.reset();
-        onPostSubmit && onPostSubmit(post);
-      })
-      .catch(console.log);
-  }
+	function handleSubmit(event) {
+		event.preventDefault();
+		const photo = event.target.photo.value?.trim();
+		const description = event.target.description.value?.trim();
+		createPost({ photo, description })
+			.then((post) => {
+				event.target.reset();
+				onPostSubmit && onPostSubmit(post);
+			})
+			.catch(console.log);
+	}
 
-  return (
-    <CreatePostContainerStyled>
-      <CreatePostFormStyled onSubmit={handleSubmit}>
-        <CreatePostInputStyled
-          name="photo"
-          placeholder="Insira a URL da imagem"
-          type="url"
-          required
-        />
-        <CreatePostTextAreaStyled
-          name="description"
-          rows={5}
-          placeholder="Escreva uma nova publicação"
-          required
-        />
-        <CreatePostButtonStyled>Publicar</CreatePostButtonStyled>
-      </CreatePostFormStyled>
-    </CreatePostContainerStyled>
-  );
+	return (
+		<CreatePostContainerStyled>
+			<CreatePostFormStyled onSubmit={handleSubmit}>
+				<CreatePostInputStyled
+					name="photo"
+					placeholder="Insira a URL da imagem"
+					type="url"
+					required
+				/>
+				<CreatePostTextAreaStyled
+					name="description"
+					rows={5}
+					placeholder="Escreva uma nova publicação"
+					required
+				/>
+				<CreatePostButtonStyled>Publicar</CreatePostButtonStyled>
+			</CreatePostFormStyled>
+		</CreatePostContainerStyled>
+	);
 }
 
 const CreatePostFormStyled = styled.form`

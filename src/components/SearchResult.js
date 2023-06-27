@@ -1,40 +1,40 @@
 import styled from "styled-components";
 import {
-  ProfileContainerStyled,
-  ProfileInfoStyled,
-  ProfilePhotoStyled,
+	ProfileContainerStyled,
+	ProfileInfoStyled,
+	ProfilePhotoStyled
 } from "./Profile.js";
 
 export default function SearchResult({
-  name,
-  photoUrl,
-  bio,
-  followersCount,
-  followingCount,
-  children,
+	name,
+	photoUrl,
+	bio,
+	followersCount,
+	followingCount,
+	children
 }) {
-  return (
-    <SearchResultContainerStyled>
-      <ProfilePhotoStyled src={photoUrl} alt={`avatar`} />
-      <ProfileInfoStyled>
-        <div>
-          <h2>{name}</h2>
-          <p>{bio}</p>
-        </div>
-        <div>
-          {children}
-          <div>
-            <div>
-              {followingCount} <span>Seguindo</span>
-            </div>
-            <div>
-              {followersCount} <span>Seguidores</span>
-            </div>
-          </div>
-        </div>
-      </ProfileInfoStyled>
-    </SearchResultContainerStyled>
-  );
+	return (
+		<SearchResultContainerStyled>
+			<ProfilePhotoStyled src={photoUrl} alt={"avatar"} />
+			<ProfileInfoStyled>
+				<div>
+					<h2>{name}</h2>
+					<p>{bio}</p>
+				</div>
+				<div>
+					{children}
+					<div>
+						<div>
+							{followingCount} <span>Seguindo</span>
+						</div>
+						<div>
+							{followersCount} <span>Seguidores</span>
+						</div>
+					</div>
+				</div>
+			</ProfileInfoStyled>
+		</SearchResultContainerStyled>
+	);
 }
 
 const SearchResultContainerStyled = styled(ProfileContainerStyled)`

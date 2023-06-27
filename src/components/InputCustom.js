@@ -1,23 +1,23 @@
 import styled from "styled-components";
 
 export default function InputCustom({
-  label,
-  type,
-  placeholder,
-  onChange,
-  ...rest
+	label,
+	type,
+	placeholder,
+	onChange,
+	...rest
 }) {
-  return (
-    <InputCustomLabel>
-      <span>{label}</span>
-      <InputCustomStyled
-        onChange={onChange}
-        type={type}
-        placeholder={placeholder}
-        {...rest}
-      />
-    </InputCustomLabel>
-  );
+	return (
+		<InputCustomLabel>
+			<span>{label}</span>
+			<InputCustomStyled
+				onChange={onChange}
+				type={type}
+				placeholder={placeholder}
+				{...rest}
+			/>
+		</InputCustomLabel>
+	);
 }
 
 export const InputCustomLabel = styled.label`

@@ -57,10 +57,10 @@ const SignTitleStyled = styled.div`
 `;
 
 export {
-  MainStyled,
-  ButtonStyled,
-  FormStyled,
-  SignTitleStyled,
-  TitleH2Styled,
-  TitleH3Styled,
+	MainStyled,
+	ButtonStyled,
+	FormStyled,
+	SignTitleStyled,
+	TitleH2Styled,
+	TitleH3Styled
 };

@@ -2,35 +2,35 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Profile({
-  name,
-  photoUrl,
-  bio,
-  followersCount,
-  followingCount,
-  children,
+	name,
+	photoUrl,
+	bio,
+	followersCount,
+	followingCount,
+	children
 }) {
-  return (
-    <ProfileContainerStyled>
-      <ProfilePhotoStyled src={photoUrl} alt={`avatar`} />
-      <ProfileInfoStyled>
-        <div>
-          <h2>{name}</h2>
-          <p>{bio}</p>
-        </div>
-        <div>
-          {children}
-          <div>
-            <Link to="following">
-              {followingCount} <span>Seguindo</span>
-            </Link>
-            <Link to="followers">
-              {followersCount} <span>Seguidores</span>
-            </Link>
-          </div>
-        </div>
-      </ProfileInfoStyled>
-    </ProfileContainerStyled>
-  );
+	return (
+		<ProfileContainerStyled>
+			<ProfilePhotoStyled src={photoUrl} alt={"avatar"} />
+			<ProfileInfoStyled>
+				<div>
+					<h2>{name}</h2>
+					<p>{bio}</p>
+				</div>
+				<div>
+					{children}
+					<div>
+						<Link to="following">
+							{followingCount} <span>Seguindo</span>
+						</Link>
+						<Link to="followers">
+							{followersCount} <span>Seguidores</span>
+						</Link>
+					</div>
+				</div>
+			</ProfileInfoStyled>
+		</ProfileContainerStyled>
+	);
 }
 
 export const ProfileContainerStyled = styled.div`

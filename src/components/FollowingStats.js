@@ -3,30 +3,30 @@ import { checkIsFollowing, follow } from "../services/following.services.js";
 import styled from "styled-components";
 
 export default function FollowingStats({ afterFollow, profileId }) {
-  const [isFollowing, setIsFollowing] = useState(false);
+	const [isFollowing, setIsFollowing] = useState(false);
 
-  useEffect(() => {
-    checkIsFollowing({ followedId: profileId })
-      .then(setIsFollowing)
-      .catch(console.log);
-  }, [profileId]);
+	useEffect(() => {
+		checkIsFollowing({ followedId: profileId })
+			.then(setIsFollowing)
+			.catch(console.log);
+	}, [profileId]);
 
-  async function handleButtonClick() {
-    follow({ followedId: profileId })
-      .then(() => {
-        afterFollow();
-        setIsFollowing(true);
-      })
-      .catch(console.log);
-  }
+	async function handleButtonClick() {
+		follow({ followedId: profileId })
+			.then(() => {
+				afterFollow();
+				setIsFollowing(true);
+			})
+			.catch(console.log);
+	}
 
-  if (isFollowing) {
-    return <FollowingMessageStyled>Seguindo</FollowingMessageStyled>;
-  }
+	if (isFollowing) {
+		return <FollowingMessageStyled>Seguindo</FollowingMessageStyled>;
+	}
 
-  return (
-    <FollowButtonStyled onClick={handleButtonClick}>Seguir</FollowButtonStyled>
-  );
+	return (
+		<FollowButtonStyled onClick={handleButtonClick}>Seguir</FollowButtonStyled>
+	);
 }
 
 const FollowingMessageStyled = styled.p`

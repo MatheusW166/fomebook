@@ -6,36 +6,36 @@ import { removeToken } from "../storage/user.storage.js";
 import { House, MagnifyingGlass, SignOut } from "@phosphor-icons/react";
 
 export default function Header({ highlited }) {
-  const { user, setUser } = useContext(UserContext);
-  const loggedUserRoute = user ? `/users/${user.id}` : "/";
+	const { user, setUser } = useContext(UserContext);
+	const loggedUserRoute = user ? `/users/${user.id}` : "/";
 
-  function logOut() {
-    setUser(null);
-    removeToken();
-  }
+	function logOut() {
+		setUser(null);
+		removeToken();
+	}
 
-  return (
-    <HeaderStyled isAuth={user !== null} highlited={highlited}>
-      <div>
-        <Link to={loggedUserRoute}>
-          <h1>
-            <span>Fome</span>book
-          </h1>
-        </Link>
-        <nav>
-          <Link to={`${loggedUserRoute}`}>
-            <House weight="duotone" />
-          </Link>
-          <Link to="/users/search">
-            <MagnifyingGlass weight="duotone" />
-          </Link>
-          <Link to="/" onClick={logOut}>
-            <SignOut weight="duotone" />
-          </Link>
-        </nav>
-      </div>
-    </HeaderStyled>
-  );
+	return (
+		<HeaderStyled isAuth={user !== null} highlited={highlited}>
+			<div>
+				<Link to={loggedUserRoute}>
+					<h1>
+						<span>Fome</span>book
+					</h1>
+				</Link>
+				<nav>
+					<Link to={`${loggedUserRoute}`}>
+						<House weight="duotone" />
+					</Link>
+					<Link to="/users/search">
+						<MagnifyingGlass weight="duotone" />
+					</Link>
+					<Link to="/" onClick={logOut}>
+						<SignOut weight="duotone" />
+					</Link>
+				</nav>
+			</div>
+		</HeaderStyled>
+	);
 }
 
 const HeaderStyled = styled.header`
@@ -79,8 +79,8 @@ const HeaderStyled = styled.header`
         }
     `}
     ${({ isAuth }) =>
-      !isAuth &&
-      `
+		!isAuth &&
+    `
       a:not(:nth-of-type(2)) { 
         display:none;
       }

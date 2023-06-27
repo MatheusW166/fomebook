@@ -3,35 +3,35 @@ import styled from "styled-components";
 import { ProfilePhotoStyled } from "./Profile.js";
 
 export default function Post({
-  userName,
-  userPhotoUrl,
-  createdAt,
-  photoUrl,
-  description,
-  likesCount,
-  isLiked = false,
+	userName,
+	userPhotoUrl,
+	createdAt,
+	photoUrl,
+	description,
+	likesCount,
+	isLiked = false
 }) {
-  return (
-    <PostStyled isLiked={isLiked}>
-      <div>
-        <img alt={`${userName}-${createdAt}`} src={photoUrl} />
-      </div>
-      <div>
-        <div>
-          <PostHeaderStyled>
-            <ProfilePhotoStyled alt={`${userName}-photo`} src={userPhotoUrl} />
-            <p>{userName}</p>
-            <p>{new Date(createdAt).toLocaleDateString()}</p>
-          </PostHeaderStyled>
-          <main>{description}</main>
-        </div>
-        <footer>
-          <Heart weight="duotone" />
-          {likesCount} curtidas
-        </footer>
-      </div>
-    </PostStyled>
-  );
+	return (
+		<PostStyled isLiked={isLiked}>
+			<div>
+				<img alt={`${userName}-${createdAt}`} src={photoUrl} />
+			</div>
+			<div>
+				<div>
+					<PostHeaderStyled>
+						<ProfilePhotoStyled alt={`${userName}-photo`} src={userPhotoUrl} />
+						<p>{userName}</p>
+						<p>{new Date(createdAt).toLocaleDateString()}</p>
+					</PostHeaderStyled>
+					<main>{description}</main>
+				</div>
+				<footer>
+					<Heart weight="duotone" />
+					{likesCount} curtidas
+				</footer>
+			</div>
+		</PostStyled>
+	);
 }
 
 const PostStyled = styled.article`
